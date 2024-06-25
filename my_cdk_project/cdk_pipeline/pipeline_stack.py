@@ -1,39 +1,29 @@
 # cdk_pipeline/pipeline_stack.py
-from aws_cdk import core
-from aws_cdk import aws_codepipeline as codepipeline
-from aws_cdk import aws_codepipeline_actions as actions
-from aws_cdk import aws_codebuild as codebuild
+from aws_cdk import (
+    core,
+    aws_codepipeline as codepipeline,
+    aws_codepipeline_actions as actions,
+    aws_codebuild as codebuild,
+    aws_secretsmanager as secretsmanager,
+)
 
 class MyPipelineStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # Define source and build artifacts
+        # Retrieve GitHub PAT from Secrets Manager
+        github_secret = secretsmanager.Secret.from_secret_name_v2(
+            self, "GitHubToken",
+            "GitHubPATCdk"
+        )
+
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
 
-        # Define CodeBuild project
-        build_project = codebuild.PipelineProject(self, "BuildProject",
-            build_spec=codebuild.BuildSpec.from_object({
-                'version': '0.2',
-                'phases': {
-                    'build': {
-                        'commands': [
-                            'echo Build completed on `date`',
-                            'mvn package'
-                        ]
-                    }
-                },
-                'artifacts': {
-                    'files': [
-                        '**/*'
-                    ]
-                }
-            })
-        )
+        # Assuming "pythonCdkBuildProject" is the name of your existing CodeBuild project
+        existing_build_project = codebuild.Project.from_project_name(self, "ExistingBuildProject", "pythonCdkBuildProject")
 
-        # Define CodePipeline
         pipeline = codepipeline.Pipeline(self, "MyPipeline",
             stages=[
                 codepipeline.StageProps(
@@ -41,11 +31,11 @@ class MyPipelineStack(core.Stack):
                     actions=[
                         actions.GitHubSourceAction(
                             action_name="GitHub_Source",
-                            owner="your-github-owner",
-                            repo="your-repo",
-                            oauth_token=core.SecretValue.secrets_manager("your-github-token"),
+                            owner="POW2KOR",
+                            repo="CDK-Python",
+                            oauth_token=github_secret.secret_value,
                             output=source_output,
-                            branch="master"
+                            branch="main"
                         )
                     ]
                 ),
@@ -54,12 +44,11 @@ class MyPipelineStack(core.Stack):
                     actions=[
                         actions.CodeBuildAction(
                             action_name="CodeBuild",
-                            project=build_project,
+                            project=existing_build_project,
                             input=source_output,
                             outputs=[build_output]
                         )
                     ]
                 )
-            
             ]
         )
