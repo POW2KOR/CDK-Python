@@ -1,0 +1,148 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "MyPipelineStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MyPipelineStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MyPipelineStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "MyPipelineStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9f5a2ea4665f2fecdb1d1af0d686545b44c1e07687c3e23c29f120a009c5d441.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MyPipelineStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MyPipelineStack.assets"
+      ],
+      "metadata": {
+        "/MyPipelineStack/MyPipeline": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "V1 pipeline type is implicitly selected when `pipelineType` is not set. If you want to use V2 type, set `PipelineType.V2`. [ack: @aws-cdk/aws-codepipeline:unspecifiedPipelineType]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\jsii-kernel-mIFJTL\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\jsii-kernel-mIFJTL\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new Pipeline (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\jsii-kernel-mIFJTL\\node_modules\\aws-cdk-lib\\aws-codepipeline\\lib\\pipeline.js:1:6677)",
+              "Kernel._Kernel_create (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\tmp38pkqg5a\\lib\\program.js:10119:25)",
+              "Kernel.create (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\tmp38pkqg5a\\lib\\program.js:9790:93)",
+              "KernelHost.processRequest (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\tmp38pkqg5a\\lib\\program.js:11707:36)",
+              "KernelHost.run (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\tmp38pkqg5a\\lib\\program.js:11667:22)",
+              "Immediate._onImmediate (C:\\Users\\POW2Kor\\AppData\\Local\\Temp\\tmp38pkqg5a\\lib\\program.js:11668:46)",
+              "process.processImmediate (node:internal/timers:478:21)"
+            ]
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/ArtifactsBucketEncryptionKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineArtifactsBucketEncryptionKey8BF0A7F3"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/ArtifactsBucketEncryptionKeyAlias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineArtifactsBucketEncryptionKeyAlias9D4F8C59"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineArtifactsBucket727923DD"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineArtifactsBucketPolicyDFDA675B"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineRoleC0D47CA4"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineRoleDefaultPolicy34F09EFA"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineAED38ECF"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Source/GitHub_Source/WebhookResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineSourceGitHubSourceWebhookResourceE616042B"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Build/CodeBuild/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineBuildCodeBuildCodePipelineActionRoleCAE538CA"
+          }
+        ],
+        "/MyPipelineStack/MyPipeline/Build/CodeBuild/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyPipelineBuildCodeBuildCodePipelineActionRoleDefaultPolicyD9654D9B"
+          }
+        ],
+        "/MyPipelineStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/MyPipelineStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/MyPipelineStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/MyPipelineStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "MyPipelineStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

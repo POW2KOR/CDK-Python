@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_codepipeline_actions as actions,
     aws_codebuild as codebuild,
     aws_secretsmanager as secretsmanager,
+    aws_iam as iam,
 )
 from constructs import Construct
 
@@ -20,6 +21,9 @@ class MyPipelineStack(Stack):
 
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
+
+         
+        codebuild_role = iam.Role.from_role_arn(self, "CodeBuildRole", "arn:aws:iam::5900:role/service-role/codice-role-delete")
 
         existing_build_project = codebuild.Project.from_project_name(self, "ExistingBuildProject", "pythonCdkBuildProject")
 
@@ -45,7 +49,8 @@ class MyPipelineStack(Stack):
                             action_name="CodeBuild",
                             project=existing_build_project,
                             input=source_output,
-                            outputs=[build_output]
+                            outputs=[build_output],
+                            role=codebuild_role
                         )
                     ]
                 )
