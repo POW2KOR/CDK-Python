@@ -1,18 +1,18 @@
 # cdk_pipeline/pipeline_stack.py
 from aws_cdk import (
-    core,
+    Stack,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as actions,
     aws_codebuild as codebuild,
     aws_secretsmanager as secretsmanager,
 )
+from constructs import Construct
 
-class MyPipelineStack(core.Stack):
+class MyPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # Retrieve GitHub PAT from Secrets Manager
         github_secret = secretsmanager.Secret.from_secret_name_v2(
             self, "GitHubToken",
             "GitHubPATCdk"
@@ -21,7 +21,6 @@ class MyPipelineStack(core.Stack):
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
 
-        # Assuming "pythonCdkBuildProject" is the name of your existing CodeBuild project
         existing_build_project = codebuild.Project.from_project_name(self, "ExistingBuildProject", "pythonCdkBuildProject")
 
         pipeline = codepipeline.Pipeline(self, "MyPipeline",

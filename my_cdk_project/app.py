@@ -1,7 +1,6 @@
-# app.py
-from aws_cdk import core
+from aws_cdk import App
 from cdk_pipeline.pipeline_stack import MyPipelineStack
 
-app = core.App()
+app = App()
 MyPipelineStack(app, "MyPipelineStack")
 app.synth()
