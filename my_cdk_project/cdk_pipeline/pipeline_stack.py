@@ -23,7 +23,7 @@ class MyPipelineStack(Stack):
         build_output = codepipeline.Artifact()
 
          
-        codebuild_role = iam.Role.from_role_arn(self, "CodeBuildRole", "arn:aws:iam::5900:role/service-role/codice-role-delete")
+        codebuild_role = iam.Role.from_role_arn(self, "CodeBuildRole", "arn:aws:iam::590183926260:role/service-role/codebuild-qemu-test-service-role-delete")
 
         existing_build_project = codebuild.Project.from_project_name(self, "ExistingBuildProject", "pythonCdkBuildProject")
 
